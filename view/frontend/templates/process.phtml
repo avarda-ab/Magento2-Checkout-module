@@ -1,0 +1,41 @@
+<?php
+/**
+ * @copyright Copyright © 2021 Avarda. All rights reserved.
+ * @package   Avarda_Checkout
+ */
+$purchaseId = $this->getPurchaseId();
+?>
+<div id="checkOutDiv"></div>
+<script src="<?= $this->getCheckOutClientScriptPath(); ?>.js"></script>
+<script>
+  var getUrlParameter = function(name, url) {
+    var expression = '[\\?&]' + name + '=([^&#?]*)';
+    var results = new RegExp(expression).exec(url);
+    if (!results) {
+      return null;
+    } else {
+      return results[1];
+    }
+  };
+  var callbackQParam= getUrlParameter('callback', window.location.href)
+
+  /**
+   * if callback equals to 2 then it is a redirect due to setting a cookie
+   * since 2 is a number but it comes as a string in the queryParams let's
+   * be precise in checking and use the number instead, no `==` :)
+   */
+
+  if(parseInt(callbackQParam, 10) === 2) {
+    window.location.href = "<?= $this->getUrl('avarda/checkout', ['_secure' => true]);?>"
+  } else {
+    var options = {
+      divId: "checkOutDiv",
+      purchaseId: "<?= $purchaseId; ?>",
+      done: function (purchaseId) {
+        window.location.href = "<?= $this->getSaveOrderUrl(); ?>purchase/" + purchaseId;
+      }
+    };
+    AvardaCheckOutClient.init(options);
+  }
+
+</script>

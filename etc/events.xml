@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright © 2021 Avarda. All rights reserved.
+ * @package     Avarda_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="automatic_invoicing" instance="Avarda\Checkout\Observer\AutomaticInvoicing" />
+    </event>
+    <event name="sales_order_payment_capture">
+        <observer name="avarda_sales_order_payment_capture" instance="Avarda\Checkout\Observer\SalesOrderPaymentCapture" />
+    </event>
+    <event name="order_cancel_after">
+        <observer name="avarda_sales_order_cancel_after" instance="Avarda\Checkout\Observer\OrderCancelObserver" />
+    </event>
+</config>

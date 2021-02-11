@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright © 2021 Avarda. All rights reserved.
+ * @package     Avarda_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="avarda_checkout" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Avarda Checkout</label>
+                <comment><![CDATA[Accept payments through the Avarda Checkout payment solution.]]></comment>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Avarda Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="test_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Test Mode (Stage)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="site_code" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Site Code</label>
+                </field>
+                <field id="site_password" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Site Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="onepage_redirect_active" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Redirect Onepage to Avarda Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\Newprocessing</source_model>
+                </field>
+                <field id="automatic_invoicing_active" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Create Invoice on Place Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="custom_css_url" type="text" sortOrder="48" showInDefault="1" showInWebsite="1" showInStore="1"   translate="label">
+                    <label>Custom CSS url</label>
+                    <comment>Assets URL of the custom CSS file to use. Use URL with https protocol or module::css/avarda.css format.</comment>
+                </field>
+
+                <field id="replace_default_css" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1"  translate="label">
+                    <label>Replace default CSS</label>
+                    <comment>When false, the custom styles will be used together with the default styles. If true, only the custom styles will be used. See Custom CSS Styles for details. If the customCssUrl is not set, this property has no effect.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="instructions" translate="label" type="textarea" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instructions</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

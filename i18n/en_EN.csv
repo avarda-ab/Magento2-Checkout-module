@@ -1,0 +1,67 @@
+"Avarda checkout is turned off.","Avarda checkout is turned off."
+"Guest checkout is disabled.","Guest checkout is disabled."
+Checkout,Checkout
+"Failed to save Avarda order. Please try again later.","Failed to save Avarda order. Please try again later."
+"Failed to build item data.","Failed to build item data."
+"Wrong gateway response format.","Wrong gateway response format."
+"No purchase ID returned from Avarda","No purchase ID returned from Avarda"
+"Failed to load Avarda payment. Please try again later.","Failed to load Avarda payment. Please try again later."
+"Something went wrong with Avarda checkout. Please try again later.","Something went wrong with Avarda checkout. Please try again later."
+"No purchase ID on quote %s.","No purchase ID on quote %s."
+"You have no items in your shopping cart.","You have no items in your shopping cart."
+"Click <a href=""%1"">here</a> to continue shopping.","Click <a href=""%1"">here</a> to continue shopping."
+"Please select a shipping method...","Please select a shipping method..."
+"Please check shipping address information.","Please check shipping address information."
+"Apply Discount Code","Apply Discount Code"
+"Enter discount code","Enter discount code"
+"Apply Discount","Apply Discount"
+Discount,Discount
+"Cancel Coupon","Cancel Coupon"
+Item,Item
+Price,Price
+Qty,Qty
+Subtotal,Subtotal
+"Remove item","Remove item"
+"Shopping Cart Items","Shopping Cart Items"
+"Continue Shopping","Continue Shopping"
+"Clear Cart","Clear Cart"
+"Update Cart","Update Cart"
+Summary,Summary
+Total,Total
+"Hello %1!","Hello %1!"
+"Translate this","Translate this"
+"Zip/Postal Code","Zip/Postal Code"
+Update,Update
+"Shipping Methods","Shipping Methods"
+"Select Method","Select Method"
+"Method Title","Method Title"
+"Carrier Title","Carrier Title"
+"See our Shipping Policy","See our Shipping Policy"
+"Invalid shipping method","Invalid shipping method"
+Loading...,Loading...
+topScroll,topScroll
+topFocus,topFocus
+topBlur,topBlur
+topCancel,topCancel
+topClose,topClose
+"Unable to save address. Please check input data.","Unable to save address. Please check input data."
+"Avarda Checkout","Avarda Checkout"
+"Accept payments through the Avarda Checkout payment solution.","Accept payments through the Avarda Checkout payment solution."
+"Enable Avarda Checkout","Enable Avarda Checkout"
+"Test Mode (Stage)","Test Mode (Stage)"
+"Site Code","Site Code"
+"Site Password","Site Password"
+"Redirect Onepage to Avarda Checkout","Redirect Onepage to Avarda Checkout"
+"{0} Item in cart","{0} Item in cart"
+"{0} Items in cart","{0} Items in cart"
+"Proceed to next step","Proceed to next step"
+"Grand Total","Grand Total"
+"Delivery Postal code","Delivery Postal code"
+"Shipping & Handling","Shipping & Handling"
+"Shipping & Handling (Posti - Pikkupaketti)","Shipping & Handling (Posti - Pikkupaketti)"
+Tax,Tax
+"Order review","Order review"
+"How do you want your items to be delivered?","How do you want your items to be delivered?"
+"Discount code","Alennuskoodi"
+"Insert postalcode","Insert postalcode"
+"Select payment","Payment"

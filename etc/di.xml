@@ -1,0 +1,410 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright © 2021 Avarda. All rights reserved.
+ * @package     Avarda_Checkout
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Avarda\Checkout\Api\Data\ItemDetailsInterface" type="Avarda\Checkout\Model\Data\ItemDetails" />
+    <preference for="Avarda\Checkout\Api\Data\ItemDetailsListInterface" type="Avarda\Checkout\Model\Data\ItemDetailsList" />
+    <preference for="Avarda\Checkout\Api\Data\PaymentDetailsInterface" type="Avarda\Checkout\Model\Data\PaymentDetails" />
+    <preference for="Avarda\Checkout\Api\Data\PaymentQueueInterface" type="Avarda\Checkout\Model\PaymentQueue" />
+    <preference for="Avarda\Checkout\Api\GuestPaymentManagementInterface" type="Avarda\Checkout\Model\GuestPaymentManagement" />
+    <preference for="Avarda\Checkout\Api\ItemManagementInterface" type="Avarda\Checkout\Model\ItemManagement" />
+    <preference for="Avarda\Checkout\Api\ItemStorageInterface" type="Avarda\Checkout\Model\ItemStorage" />
+    <preference for="Avarda\Checkout\Api\PaymentManagementInterface" type="Avarda\Checkout\Model\PaymentManagement" />
+    <preference for="Avarda\Checkout\Api\PaymentQueueRepositoryInterface" type="Avarda\Checkout\Model\PaymentQueueRepository" />
+    <preference for="Avarda\Checkout\Api\QuotePaymentManagementInterface" type="Avarda\Checkout\Model\QuotePaymentManagement" />
+    <preference for="Avarda\Checkout\Gateway\Data\ItemDataObjectFactoryInterface" type="Avarda\Checkout\Gateway\Data\ItemDataObjectFactory" />
+    <preference for="Avarda\Checkout\Gateway\Data\ItemDataObjectInterface" type="Avarda\Checkout\Gateway\Data\ItemDataObject" />
+    <preference for="Avarda\Checkout\Api\PaymentCompleteInterface" type="Avarda\Checkout\Model\PaymentComplete" />
+    <preference for="Avarda\Checkout\Api\AvardaOrderRepositoryInterface" type="Avarda\Checkout\Model\AvardaOrderRepository" />
+    <preference for="Avarda\Checkout\Api\Data\AvardaOrderInterfaceFactory" type="Avarda\Checkout\Model\AvardaOrder" />
+
+    <!-- Avarda plugins -->
+    <type name="Magento\Quote\Api\Data\CartInterface">
+        <plugin name="avardaQuoteCollectTotalsPrepareItems" type="Avarda\Checkout\Plugin\Model\Quote\QuoteCollectTotalsPrepareItems" sortOrder="900" />
+        <plugin name="avardaQuoteCollectTotalsUpdateItems" type="Avarda\Checkout\Plugin\Model\Quote\QuoteCollectTotalsUpdateItems" sortOrder="1000" />
+    </type>
+    <type name="Magento\Sales\Api\Data\InvoiceInterface">
+        <plugin name="avardaInvoiceCollectTotalsPrepareItems" type="Avarda\Checkout\Plugin\Model\Sales\Order\InvoiceCollectTotalsPrepareItems" sortOrder="900" />
+    </type>
+    <type name="Magento\Sales\Api\Data\CreditmemoInterface">
+        <plugin name="avardaCreditmemoCollectTotalsPrepareItems" type="Avarda\Checkout\Plugin\Model\Sales\Order\CreditmemoCollectTotalsPrepareItems" sortOrder="900" />
+    </type>
+    <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="avarda_checkout_redirect" type="Avarda\Checkout\Plugin\Checkout\CheckoutIndex"/>
+    </type>
+    <!-- END Avarda plugins -->
+
+    <!-- Avarda payment methods -->
+    <virtualType name="AvardaCheckoutFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInvoiceFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\Invoice\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutInvoiceValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutLoanFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\Loan\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutLoanValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutCardFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\Card\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutCardValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutDirectPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\DirectPayment\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutDirectPaymentValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPartPaymentFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Avarda\Checkout\Model\Ui\PartPayment\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">AvardaCheckoutPartPaymentValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <!-- END Avarda payment methods -->
+
+    <!-- Commands infrastructure -->
+    <virtualType name="AvardaCheckoutCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="avarda_initialize_payment" xsi:type="string">AvardaCheckoutInitializePaymentCommand</item>
+                <item name="avarda_update_items" xsi:type="string">AvardaCheckoutUpdateItemsCommand</item>
+                <item name="avarda_get_payment_status" xsi:type="string">AvardaCheckoutGetPaymentStatusCommand</item>
+                <item name="capture" xsi:type="string">AvardaCheckoutPurchaseOrderCommand</item>
+                <item name="refund" xsi:type="string">AvardaCheckoutReturnCommand</item>
+                <item name="avarda_cancel" xsi:type="string">AvardaCheckoutRefundCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END Commands infrastructure -->
+
+    <!-- Avarda commands  -->
+    <virtualType name="AvardaCheckoutCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">AvardaCheckoutClient</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInitializePaymentCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutInitializePaymentRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutInitializePaymentTransferFactory</argument>
+            <argument name="handler" xsi:type="object">Avarda\Checkout\Gateway\Response\InitializePaymentHandler</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInitializePaymentRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="customer" xsi:type="string">Avarda\Checkout\Gateway\Request\CustomerDataBuilder</item>
+                <item name="customer_token" xsi:type="string">Avarda\Checkout\Gateway\Request\CustomerTokenDataBuilder</item>
+                <item name="address" xsi:type="string">Avarda\Checkout\Gateway\Request\AddressDataBuilder</item>
+                <item name="price" xsi:type="string">Avarda\Checkout\Gateway\Request\PriceDataBuilder</item>
+                <item name="items" xsi:type="string">Avarda\Checkout\Gateway\Request\ItemsDataBuilder</item>
+                <item name="user_language" xsi:type="string">Avarda\Checkout\Gateway\Request\UserLanguageDataBuilder</item>
+                <item name="order_reference" xsi:type="string">Avarda\Checkout\Gateway\Request\OrderReferenceDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInitializePaymentTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/InitializePayment</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AvardaCheckoutUpdateItemsCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutUpdateItemsRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutUpdateItemsTransferFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutUpdateItemsRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="purchase_id" xsi:type="string">Avarda\Checkout\Gateway\Request\PurchaseIdDataBuilder</item>
+                <item name="price" xsi:type="string">Avarda\Checkout\Gateway\Request\PriceDataBuilder</item>
+                <item name="items" xsi:type="string">Avarda\Checkout\Gateway\Request\ItemsDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutUpdateItemsTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/UpdateItems</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AvardaCheckoutGetPaymentStatusCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutGetPaymentStatusRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutGetPaymentStatusTransferFactory</argument>
+            <argument name="handler" xsi:type="object">Avarda\Checkout\Gateway\Response\GetPaymentStatusHandler</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutGetPaymentStatusRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="purchase_id" xsi:type="string">Avarda\Checkout\Gateway\Request\PurchaseIdDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutGetPaymentStatusTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/GetPaymentStatus</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AvardaCheckoutPurchaseOrderCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutPurchaseOrderRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutPurchaseOrderTransferFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPurchaseOrderRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="external_id" xsi:type="string">Avarda\Checkout\Gateway\Request\ExternalIdDataBuilder</item>
+                <item name="items" xsi:type="string">Avarda\Checkout\Gateway\Request\ItemsDataBuilder</item>
+                <item name="order_reference" xsi:type="string">Avarda\Checkout\Gateway\Request\OrderReferenceDataBuilder</item>
+                <item name="tran_id" xsi:type="string">Avarda\Checkout\Gateway\Request\TranIdDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPurchaseOrderTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/Commerce/PurchaseOrder</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AvardaCheckoutRefundCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutRefundRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutRefundTransferFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutRefundRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="external_id" xsi:type="string">Avarda\Checkout\Gateway\Request\ExternalIdDataBuilder</item>
+                <item name="amount" xsi:type="string">Avarda\Checkout\Gateway\Request\AmountDataBuilder</item>
+                <item name="order_reference" xsi:type="string">Avarda\Checkout\Gateway\Request\OrderReferenceDataBuilder</item>
+                <item name="tran_id" xsi:type="string">Avarda\Checkout\Gateway\Request\TranIdDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutRefundTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/Commerce/Refund</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="AvardaCheckoutReturnCommand" type="AvardaCheckoutCommand">
+        <arguments>
+            <argument name="requestBuilder" xsi:type="object">AvardaCheckoutReturnRequest</argument>
+            <argument name="transferFactory" xsi:type="object">AvardaCheckoutReturnTransferFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutReturnRequest" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="external_id" xsi:type="string">Avarda\Checkout\Gateway\Request\ExternalIdDataBuilder</item>
+                <item name="items" xsi:type="string">Avarda\Checkout\Gateway\Request\ItemsDataBuilder</item>
+                <item name="order_reference" xsi:type="string">Avarda\Checkout\Gateway\Request\OrderReferenceDataBuilder</item>
+                <item name="tran_id" xsi:type="string">Avarda\Checkout\Gateway\Request\TranIdDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutReturnTransferFactory" type="Avarda\Checkout\Gateway\Http\TransferFactory">
+        <arguments>
+            <argument name="uri" xsi:type="string">/CheckOut2Api/Commerce/ReturnOrder</argument>
+        </arguments>
+    </virtualType>
+    <!-- END Avarda commands -->
+
+    <!-- Avarda items builders -->
+    <type name="Avarda\Checkout\Gateway\Request\ItemsDataBuilder">
+        <arguments>
+            <argument name="itemBuilder" xsi:type="object">AvardaCheckoutItemBuilder</argument>
+        </arguments>
+    </type>
+    <virtualType name="AvardaCheckoutItemBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="product" xsi:type="string">Avarda\Checkout\Gateway\Request\Item\ProductDataBuilder</item>
+                <item name="amount" xsi:type="string">Avarda\Checkout\Gateway\Request\Item\AmountDataBuilder</item>
+                <item name="tax" xsi:type="string">Avarda\Checkout\Gateway\Request\Item\TaxDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END Avarda items builder -->
+
+    <!-- Quote command pool -->
+    <type name="Avarda\Checkout\Model\QuotePaymentManagement">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+            <argument name="paymentDataObjectFactory" xsi:type="object">Magento\Payment\Gateway\Data\PaymentDataObjectFactory</argument>
+        </arguments>
+    </type>
+    <type name="Avarda\Checkout\Observer\OrderCancelObserver">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">AvardaCheckoutCommandPool</argument>
+            <argument name="paymentDataObjectFactory" xsi:type="object">Magento\Payment\Gateway\Data\PaymentDataObjectFactory</argument>
+        </arguments>
+    </type>
+    <!-- END Quote command pool -->
+
+    <!-- Avarda HTTP client -->
+    <virtualType name="AvardaCheckoutClient" type="Avarda\Checkout\Gateway\Http\Client\Zend">
+        <arguments>
+            <argument name="logger" xsi:type="object">AvardaCheckoutLogger</argument>
+            <argument name="converter" xsi:type="object">Avarda\Checkout\Gateway\Http\Converter\JsonConverter</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">AvardaCheckoutGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <!-- END Avarda HTTP client -->
+
+    <!-- Value handlers infrastructure -->
+    <type name="Avarda\Checkout\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">avarda_checkout</argument>
+        </arguments>
+    </type>
+    <virtualType name="AvardaCheckoutValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInvoiceValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutInvoiceConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInvoiceConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutInvoiceGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutInvoiceGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\Invoice\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutLoanValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutLoanConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutLoanConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutLoanGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutLoanGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\Loan\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutCardValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutCardConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutCardConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutCardGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutCardGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\Card\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutDirectPaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutDirectPaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutDirectPaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutDirectPaymentGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutDirectPaymentGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\DirectPayment\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPartPaymentValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">AvardaCheckoutPartPaymentConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPartPaymentConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">AvardaCheckoutPartPaymentGenericConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AvardaCheckoutPartPaymentGenericConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Avarda\Checkout\Model\Ui\PartPayment\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+    <!-- END Value handlers infrastructure -->
+
+</config>

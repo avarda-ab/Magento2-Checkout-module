@@ -1,0 +1,65 @@
+"Avarda checkout is turned off.","Avarda checkout är avstängd."
+"Guest checkout is disabled.","Gästkassa är ej tillgänglig."
+Checkout,"Betalning & leverans"
+"Failed to save Avarda order. Please try again later.","Ett tekniskt fel uppstod vid beställning. Vänligen försök igen senare."
+"Failed to build item data.","Er beställning kunde inte behandlas. Vänligen kontakta oss."
+"Wrong gateway response format.","Ett tekniskt fel uppstod. Vänligen kontakta oss."
+"No purchase ID returned from Avarda","Ett tekniskt fel uppstod. Vänligen kontakta oss."
+"Failed to load Avarda payment. Please try again later.","Vår betaltjänst är för tillfället otillgänglig. Vänligen försök igen senare."
+"Something went wrong with Avarda checkout. Please try again later.","Ett tekniskt fel uppstod i kassan. Vänligen försök igen senare."
+"No purchase ID on quote %s.","Ett tekniskt fel uppstod. Vänligen kontakta oss."
+"You have no items in your shopping cart.","Du har inga varor i din varukorg."
+"Click <a href=""%1"">here</a> to continue shopping.","Klicka <a href=""%1"">här</a> för att fortsätta handla."
+"Please select a shipping method...","Var god välj ett leveranssätt..."
+"Please check shipping address information.","Vänligen kontrollera er leveransadress."
+"Apply Discount Code","Använd rabattkod"
+"Enter discount code","Ange rabattkod"
+"Apply Discount","Ansök rabatt"
+Discount,Rabatt
+"Cancel Coupon","Ta bort kupong"
+Item,Vara
+Price,Pris
+Qty,St
+Subtotal,Delsumma
+"Remove item","Ta bort vara"
+"Shopping Cart Items","Varor i korgen"
+"Continue Shopping","Fortsätt handla"
+"Clear Cart","Töm varukorgen"
+"Update Cart","Uppdatera varukorgen"
+Summary,Sammanfattning
+Total,Totalt
+"Hello %1!","Hej %1!"
+"Translate this","Translate this"
+"Zip/Postal Code","Postnummer"
+Update,Uppdatering
+"Shipping Methods","Leveranssätt"
+"Select Method","Välj leveranssätt"
+"Method Title","Leveranssätt titel"
+"Carrier Title","Transport titel"
+"See our Shipping Policy","Se vår fraktpolicy"
+"Invalid shipping method","Ogiltig leveranssätt"
+Loading...,Laddar...
+topScroll,topScroll
+topFocus,topFocus
+topBlur,topBlur
+topCancel,topCancel
+topClose,topClose
+"Unable to save address. Please check input data.","Kan inte spara adress. Vänligen kontrollera er information."
+"Avarda Checkout","Avarda Checkout"
+"Accept payments through the Avarda Checkout payment solution.","Ta emot betalningar via Avarda Checkout betalningslösningen."
+"Enable Avarda Checkout","Aktivera Avarda Checkout"
+"Test Mode (Stage)","Testläge (Stage)"
+"Site Code","Site Code"
+"Site Password","Site Password"
+"Redirect Onepage to Avarda Checkout","Omdirigera Onepage till Avarda Checkout"
+"{0} Item in cart","{0} vara i korgen"
+"{0} Items in cart","{0} varor i korgen"
+"Proceed to next step","Fortsätt till nästa steg"
+"Grand Total","Att betala"
+"Delivery Postal code","Postnummer för leveransalternativ"
+"Shipping & Handling","Leverans och hantering"
+"Shipping & Handling (Posti - Pikkupaketti)","Leverans och hantering (Posti - Pikkupaketti)"
+Tax,Skatt
+"Order Review","Beställning"
+"How do you want your items to be delivered?", "Hur vill du ha dina varor levererade?"
+"Discount code", "Rabattkod"

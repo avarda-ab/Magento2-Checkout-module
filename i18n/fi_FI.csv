@@ -1,0 +1,75 @@
+"Avarda checkout is turned off.","Avarda checkout on pois päältä."
+"Guest checkout is disabled.","Tilaaminen vieraana estetty."
+Checkout,"Maksu- ja toimitusvaihtoehdot"
+"Failed to save Avarda order. Please try again later.","Avarda tilauksen tallennus epäonnistui. Yritä myöhemmin uudelleen."
+"Failed to build item data.","Failed to build item data."
+"Wrong gateway response format.","Wrong gateway response format."
+"No purchase ID returned from Avarda","No purchase ID returned from Avarda"
+"Failed to load Avarda payment. Please try again later.","Avarda maksun lataaminen epäonnistui. Yritä myöhemmin uudelleen."
+"Something went wrong with Avarda checkout. Please try again later.","Jokin meni vikaan Avarda checkoutissa. Yritä myöhemmin uudelleen."
+"No purchase ID on quote %s.","No purchase ID on quote %s."
+"You have no items in your shopping cart.","Ostoskorisi on tyhjä."
+"Click <a href=""%1"">here</a> to continue shopping.","Klikkaa <a href=""%1"">tästä</a> jatkaakseni ostoksia."
+"Please select a shipping method...","Valitse toimitustapa..."
+"Please check shipping address information.","Tarkista toimistusosoite."
+"Apply Discount Code","Käytä alennuskoodi"
+"Enter discount code","Syötä alennuskoodi"
+"Apply Discount","Käytä alennus"
+Discount,Alennus
+"Cancel Coupon","Peruuta kuponki"
+Item,Nimike
+Price,Hinta
+Qty,Määrä
+Subtotal,Välisumma
+"Remove item","Poista nimike"
+"Shopping Cart Items","Ostoskorin nimikkeet"
+"Continue Shopping","Jatka ostoksia"
+"Clear Cart","Tyhjennä ostoskori"
+"Update Cart","Päivitä ostoskori"
+Summary,Yhteenveto
+Total,Yhteensä
+"Hello %1!","Hei %1!"
+"Translate this","Käännä tämä"
+"Zip/Postal Code","Postinumero"
+Update,Päivitä
+"Shipping Methods","Toimitustavat"
+"Select Method","Valitse toimitustapa"
+"Method Title","Toimitustavan otsikko"
+"Carrier Title","Kuljetusyhtiön otsikko"
+"See our Shipping Policy","Näytä toimistusehtomme"
+"Invalid shipping method","Virheellinen toimitustapa"
+Loading...,Lataa...
+topScroll,topScroll
+topFocus,topFocus
+topBlur,topBlur
+topCancel,topCancel
+topClose,topClose
+"Unable to save address. Please check input data.","Osoitteen tallennus epäonnistui. Tarkista antamasi tiedot."
+"Avarda Checkout","Avarda Checkout"
+"Accept payments through the Avarda Checkout payment solution.","Hyväksy maksut Avarda Checkout maksutaparatkaisulla."
+"Enable Avarda Checkout","Ota käyttöön Avarda Checkout"
+"Test Mode (Stage)","Test Mode (Stage)"
+"Site Code","Kauppiastunnus"
+"Site Password","Kauppiassalasana"
+"Redirect Onepage to Avarda Checkout","Uudelleenohjaa Onepage Avarda Checkoutiin"
+"{0} Item in cart","{0} tuote ostoskorissa"
+"{0} Items in cart","{0} tuotetta ostoskorissa"
+"Proceed to next step","Proceed to next step"
+"Grand Total","Yhteensä"
+"Delivery Postal code","Postinumero"
+"Shipping & Handling","Toimitus- ja käsittelykulut"
+"Shipping & Handling (Posti - Pikkupaketti)","Toimitus- ja käsittelykulut (Posti - Pikkupaketti)"
+Tax,Alv
+"Order Review","Tilauksen tarkastelu"
+"How do you want your items to be delivered?","Valitse toimitustapa"
+"Discount code","Alennuskoodi"
+"Insert postalcode","Anna postinumero"
+"Payment","Maksu"
+"Select payment","Valitse maksutapa"
+"Kassa","Maksu ja toimitus"
+"1. Postcode","1. Anna postinumero"
+"1. Shipping Methods","1. Valitse toimitustapa"
+"2. Select payment","2. Valitse maksutapa"
+"Postalcode","Postinumero"
+"Missing shipping method. Please select the shipping method and try again.","Toimitustapa puuttuu. Ole hyvä ja valitse toimitustapa ja yritä uudelleen"
+"Order already saved","Tilaus on jo tallennettu"
