@@ -35,16 +35,23 @@ define([
     'use strict';
 
     return Component.extend({
-        isShippingSaved: false,
         defaults: {
             template: 'Avarda_Checkout/shipping-method'
         },
         initialize: function () {
             let self = this;
             this._super();
+
             if (quote.isVirtual()) {
                 self.initializeIframe();
             }
+
+            // This is needed when shippingMethod is already selected, but it's not available right away
+            let initial = quote.shippingMethod.subscribe(function(){
+                self.initializeIframe();
+                // remove this subscription
+                initial.dispose();
+            });
 
             /**
              * Listener for quote totals changes
@@ -52,21 +59,16 @@ define([
              */
             quote.totals.subscribe(function () {
                 if (quote.shippingMethod() || quote.isVirtual()) {
-                    if (!self.isShippingSaved && !quote.isVirtual()) {
-                        self.isShippingSaved = true;
-                        setShippingInformationAction();
-                    } else {
-                        self.initializeIframe();
-                    }
+                    self.initializeIframe();
                 }
             });
         },
 
         selectShippingMethod: function (shippingMethod) {
-            this.isShippingSaved = false;
             selectShippingMethodAction(shippingMethod);
             checkoutData.setSelectedShippingRate(shippingMethod['carrier_code'] + '_' + shippingMethod['method_code']);
-
+            // Save selection
+            setShippingInformationAction();
             return true;
         },
 
@@ -114,16 +116,12 @@ define([
         /**
          * Initializes checkout iframe
          *
-         * Todo: This could be better in checkout-view.js
-         *
          * @returns {boolean}
          */
         initializeIframe: function() {
             let self = this;
-            // Shipping method selected -> initialize payment
             let serviceUrl = '';
 
-            // Selecting a shipping method we need to save the selection
             if (customer.isLoggedIn()) {
                 serviceUrl = urlBuilder.createUrl('/carts/mine/avarda-payment', {});
             } else {
@@ -132,7 +130,6 @@ define([
                 });
             }
 
-            let defer = $.Deferred();
             storage.get(
                 serviceUrl, true
             ).done(function (response) {
@@ -152,7 +149,6 @@ define([
                 }
             }).fail(function (response) {
                 errorProcessor.process(response);
-                defer.reject();
             });
 
             return true;
