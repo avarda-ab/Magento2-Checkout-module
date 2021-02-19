@@ -48,7 +48,7 @@ define([
 
             // This is needed when shippingMethod is already selected, but it's not available right away
             let initial = quote.shippingMethod.subscribe(function(){
-                self.initializeIframe();
+                setShippingInformationAction();
                 // remove this subscription
                 initial.dispose();
             });
