@@ -78,8 +78,8 @@ class JsonConverter implements ConverterInterface
             foreach ($body as $error) {
                 $errors[] = new LocalizedException(
                     __(self::WEBAPI_EXCEPTION_MESSAGE, [
-                        'code' => $error['ErrorCode'],
-                        'message' => __($error['ErrorMessage']),
+                        'code' => isset($error['ErrorCode']) ? $error['ErrorCode'] : '',
+                        'message' => isset($error['ErrorMessage']) ? __($error['ErrorMessage']) : '',
                     ])
                 );
             }

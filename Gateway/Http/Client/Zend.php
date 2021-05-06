@@ -84,7 +84,7 @@ class Zend implements ClientInterface
         }
 
         $client->setHeaders($transferObject->getHeaders());
-        $client->setUrlEncodeBody($transferObject->shouldEncode());
+        $client->setUrlEncodeBody(true);
         $client->setUri($transferObject->getUri());
 
         try {

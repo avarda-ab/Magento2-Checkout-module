@@ -69,6 +69,7 @@ Tax,Alv
 "Kassa","Maksu ja toimitus"
 "1. Postcode","1. Anna postinumero"
 "1. Shipping Methods","1. Valitse toimitustapa"
+"1. Select payment","1. Valitse maksutapa"
 "2. Select payment","2. Valitse maksutapa"
 "Postalcode","Postinumero"
 "Missing shipping method. Please select the shipping method and try again.","Toimitustapa puuttuu. Ole hyvä ja valitse toimitustapa ja yritä uudelleen"

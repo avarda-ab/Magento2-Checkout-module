@@ -8,6 +8,8 @@ namespace Avarda\Checkout\Gateway\Request;
 use Avarda\Checkout\Gateway\Config\Config;
 use Avarda\Checkout\Preference\Magento\Payment\Gateway\Data\Order\OrderAdapterFactory;
 use Avarda\Checkout\Preference\Magento\Payment\Gateway\Data\Quote\QuoteAdapterFactory;
+use Magento\Directory\Api\Data\CountryInformationInterface;
+use Magento\Directory\Model\CountryFactory;
 use Magento\Payment\Gateway\Data\OrderAdapterInterface;
 use Magento\Payment\Gateway\Helper\SubjectReader;
 use Magento\Payment\Gateway\Request\BuilderInterface;
@@ -69,6 +71,11 @@ class AddressDataBuilder implements BuilderInterface
     const CITY = 'City';
 
     /**
+     * Country
+     */
+    const COUNTRY = 'Country';
+
+    /**
      * If delivery adress is diffrent the payment
     */
     const USE_DIFFERENT_DELIVERY_ADDRESS = 'UseDifferentDeliveryAddress';
@@ -92,14 +99,21 @@ class AddressDataBuilder implements BuilderInterface
      */
     protected $quoteAdapterFactory;
 
+    /**
+     * @var CountryInformationInterface
+     */
+    protected $countryFactory;
+
     public function __construct(
         Config $config,
         OrderAdapterFactory $orderAdapterFactory,
-        QuoteAdapterFactory $quoteAdapterFactory
+        QuoteAdapterFactory $quoteAdapterFactory,
+        CountryFactory $countryFactory
     ) {
         $this->config = $config;
         $this->orderAdapterFactory = $orderAdapterFactory;
         $this->quoteAdapterFactory = $quoteAdapterFactory;
+        $this->countryFactory = $countryFactory;
     }
 
     /**
@@ -109,16 +123,6 @@ class AddressDataBuilder implements BuilderInterface
     {
         $paymentDO = SubjectReader::readPayment($buildSubject);
         $order = $paymentDO->getOrder();
-        $payment = $paymentDO->getPayment();
-        /*if ($paymentDO->getPayment() instanceof \Magento\Sales\Model\Order\Payment) {
-            $order = $this->orderAdapterFactory->create(
-                ['order' => $paymentDO->getPayment()->getOrder()]
-            );
-        } elseif ($paymentDO->getPayment() instanceof \Magento\Quote\Model\Quote\Payment) {
-            $order = $this->quoteAdapterFactory->create(
-                ['quote' => $paymentDO->getPayment()->getQuote()]
-            );
-        }*/
 
         return array_merge(
             $this->setBillingAddress($order),
@@ -142,6 +146,7 @@ class AddressDataBuilder implements BuilderInterface
                 self::INVOICING_PREFIX . self::STREET_2   => $address->getStreetLine2(),
                 self::INVOICING_PREFIX . self::ZIP        => $address->getPostcode(),
                 self::INVOICING_PREFIX . self::CITY       => $address->getCity(),
+                self::INVOICING_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
             ];
         }
 
@@ -158,6 +163,7 @@ class AddressDataBuilder implements BuilderInterface
                 self::INVOICING_PREFIX . self::STREET_2   => $address->getStreetLine2(),
                 self::INVOICING_PREFIX . self::ZIP        => $address->getPostcode(),
                 self::INVOICING_PREFIX . self::CITY       => $address->getCity(),
+                self::INVOICING_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
             ];
         }
 
@@ -182,6 +188,7 @@ class AddressDataBuilder implements BuilderInterface
             self::DELIVERY_PREFIX . self::STREET_2   => $address->getStreetLine2(),
             self::DELIVERY_PREFIX . self::ZIP        => $address->getPostcode(),
             self::DELIVERY_PREFIX . self::CITY       => $address->getCity(),
+            self::DELIVERY_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
         ];
     }
 
