@@ -104,6 +104,7 @@ class QuoteCollectTotalsUpdateItems
             if ($renew) {
                 $this->quotePaymentManagement->initializePurchase($subject);
             }
+            $this->collectTotalsFlag = false;
         }
 
         return $result;
