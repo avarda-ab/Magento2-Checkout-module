@@ -25,6 +25,9 @@ class UserLanguageDataBuilder implements BuilderInterface
     protected $allowedLocaleCodes = [
         'sv_SE',
         'fi_FI',
+        'en_US',
+        'nb_NO',
+        'da_DK',
     ];
 
     /**

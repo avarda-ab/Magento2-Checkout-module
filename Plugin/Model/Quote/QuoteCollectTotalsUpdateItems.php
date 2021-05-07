@@ -86,20 +86,25 @@ class QuoteCollectTotalsUpdateItems
             $subject->getItemsCount() > 0 &&
             $this->paymentDataHelper->isAvardaPayment($payment)
         ) {
-            // Update payment status to determine if session is outdated and needs to be initialized
-            $this->quotePaymentManagement->updatePaymentStatus($subject->getId());
-
+            // avoid infinite loops, because the calls here might call also collectTotals
             $this->collectTotalsFlag = true;
-            $stateId = $this->getStateId($subject);
-            if ($this->purchaseStateHelper->isComplete($stateId)) {
-                return $result;
-            }
-            if (($renew = $this->purchaseStateHelper->isDead($stateId)) === false) {
-                try {
-                    $this->quotePaymentManagement->updateItems($subject);
-                } catch (WebapiException $e) {
-                    $renew = true;
+            try {
+                // Update payment status to determine if session is outdated and needs to be initialized
+                $this->quotePaymentManagement->updatePaymentStatus($subject->getId());
+
+                $stateId = $this->getStateId($subject);
+                if ($this->purchaseStateHelper->isComplete($stateId)) {
+                    return $result;
                 }
+                if (($renew = $this->purchaseStateHelper->isDead($stateId)) === false) {
+                    try {
+                        $this->quotePaymentManagement->updateItems($subject);
+                    } catch (WebapiException $e) {
+                        $renew = true;
+                    }
+                }
+            } catch (\Exception $e) {
+                $renew = true;
             }
             if ($renew) {
                 $this->quotePaymentManagement->initializePurchase($subject);
@@ -107,6 +112,7 @@ class QuoteCollectTotalsUpdateItems
             $this->collectTotalsFlag = false;
         }
 
+        $this->collectTotalsFlag = false;
         return $result;
     }
 

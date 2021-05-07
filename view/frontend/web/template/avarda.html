@@ -1,11 +1,11 @@
 <li id="avarda_checkout">
     <div class="step-title"
          if="isVirtual()"
-         translate="'1. Valitse maksutapa'"
+         data-bind="i18n: '1. Select payment'"
          data-role="title"></div>
     <div class="step-title"
          ifnot="isVirtual()"
-         translate="'2. Valitse maksutapa'"
+         data-bind="i18n: '2. Select payment'"
          data-role="title"></div>
     <div id="checkout-step-title" class="step-content" data-role="content">
         <div id="avarda-checkout-iframe"></div>
