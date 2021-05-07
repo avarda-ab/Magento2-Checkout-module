@@ -112,7 +112,6 @@ class QuoteCollectTotalsUpdateItems
             $this->collectTotalsFlag = false;
         }
 
-        $this->collectTotalsFlag = false;
         return $result;
     }
 
