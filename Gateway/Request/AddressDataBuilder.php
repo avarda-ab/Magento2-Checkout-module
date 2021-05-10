@@ -146,7 +146,7 @@ class AddressDataBuilder implements BuilderInterface
                 self::INVOICING_PREFIX . self::STREET_2   => $address->getStreetLine2(),
                 self::INVOICING_PREFIX . self::ZIP        => $address->getPostcode(),
                 self::INVOICING_PREFIX . self::CITY       => $address->getCity(),
-                self::INVOICING_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
+                self::INVOICING_PREFIX . self::COUNTRY    => $address->getCountryId() ? $this->countryFactory->create()->loadByCode($address->getCountryId())->getName() : '',
             ];
         }
 
@@ -163,7 +163,7 @@ class AddressDataBuilder implements BuilderInterface
                 self::INVOICING_PREFIX . self::STREET_2   => $address->getStreetLine2(),
                 self::INVOICING_PREFIX . self::ZIP        => $address->getPostcode(),
                 self::INVOICING_PREFIX . self::CITY       => $address->getCity(),
-                self::INVOICING_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
+                self::INVOICING_PREFIX . self::COUNTRY    => $address->getCountryId() ? $this->countryFactory->create()->loadByCode($address->getCountryId())->getName() : '',
             ];
         }
 
@@ -188,7 +188,7 @@ class AddressDataBuilder implements BuilderInterface
             self::DELIVERY_PREFIX . self::STREET_2   => $address->getStreetLine2(),
             self::DELIVERY_PREFIX . self::ZIP        => $address->getPostcode(),
             self::DELIVERY_PREFIX . self::CITY       => $address->getCity(),
-            self::DELIVERY_PREFIX . self::COUNTRY    => $this->countryFactory->create()->loadByCode($address->getCountryId())->getName(),
+            self::DELIVERY_PREFIX . self::COUNTRY    => $address->getCountryId() ? $this->countryFactory->create()->loadByCode($address->getCountryId())->getName() : '',
         ];
     }
 
