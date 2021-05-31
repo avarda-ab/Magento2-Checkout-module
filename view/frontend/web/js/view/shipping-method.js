@@ -65,10 +65,14 @@ define([
         },
 
         selectShippingMethod: function (shippingMethod) {
+            let currentMethod = quote.shippingMethod();
             selectShippingMethodAction(shippingMethod);
             checkoutData.setSelectedShippingRate(shippingMethod['carrier_code'] + '_' + shippingMethod['method_code']);
-            // Save selection
-            setShippingInformationAction();
+
+            // Save selection, but not on first save, because selectShippingMethodAction will save it if it's not before set
+            if (currentMethod) {
+                setShippingInformationAction();
+            }
             return true;
         },
 
