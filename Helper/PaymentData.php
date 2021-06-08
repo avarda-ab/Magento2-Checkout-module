@@ -85,7 +85,9 @@ class PaymentData
             // pass
         }
 
-        return is_string($this->getPurchaseId($payment)) && ($paymentCode == '' || strpos($paymentCode, 'avarda') !== false);
+        return is_string($this->getPurchaseId($payment)) &&
+            ($paymentCode == '' || strpos($paymentCode, 'avarda') !== false) &&
+            strpos($paymentCode, 'avarda_checkout3') === false;
     }
 
     /**
