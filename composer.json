@@ -2,7 +2,7 @@
     "name": "avarda/checkout",
     "description": "Standalone checkout page tailored for Avarda Check-out 2 API as Magento 2 module.",
     "type": "magento2-module",
-    "version": "2.0.7",
+    "version": "2.0.8",
     "require": {
         "magento/module-checkout": ">=100.1.5"
     },
